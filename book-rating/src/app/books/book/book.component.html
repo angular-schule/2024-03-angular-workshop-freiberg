@@ -10,11 +10,8 @@
       </div>
       <p>{{ book.description }}</p>
 
-      <!--
-        3 Anti Pattern
-      -->
-      <button class="btn btn-primary me-2" (click)="book.rating = book.rating - 1">-</button>
-      <button class="btn btn-primary" (click)="book.rating = book.rating + 1">+</button>
+      <button class="btn btn-primary me-2" (click)="doRateDown()">-</button>
+      <button class="btn btn-primary" (click)="doRateUp()">+</button>
     </div>
   </div>
 }
