@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Book } from '../shared/book';
 import { JsonPipe, UpperCasePipe } from '@angular/common';
 import { BookComponent } from '../book/book.component';
+import { BookRatingService } from '../shared/book-rating.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +12,8 @@ import { BookComponent } from '../book/book.component';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
+
+  constructor(private br: BookRatingService) {}
 
   books: Book[] = [
     {
@@ -34,10 +37,20 @@ export class DashboardComponent {
   ];
 
   doRateUp(book: Book) {
-    console.table(book);
+    const ratedBook = this.br.rateUp(book);
+    this.updateAndSortBooks(ratedBook);
   }
 
   doRateDown(book: Book) {
-    console.table(book);
+    const ratedBook = this.br.rateDown(book);
+    this.updateAndSortBooks(ratedBook);
+  }
+
+  updateAndSortBooks(ratedBook: Book) {
+
+    this.books = this.books
+      .map(b => b.isbn === ratedBook.isbn ? ratedBook : b)
+      .sort((a , b) => b.rating - a.rating)
+
   }
 }
