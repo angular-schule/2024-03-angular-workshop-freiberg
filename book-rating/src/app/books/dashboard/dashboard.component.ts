@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Book } from '../shared/book';
 import { JsonPipe, UpperCasePipe } from '@angular/common';
 import { BookComponent } from '../book/book.component';
@@ -9,11 +9,15 @@ import { BookRatingService } from '../shared/book-rating.service';
   standalone: true,
   imports: [JsonPipe, BookComponent],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrl: './dashboard.component.scss',
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent {
 
-  constructor(private br: BookRatingService) {}
+  constructor(private br: BookRatingService) {
+
+    // setTimeout(() => this.books = [], 3000)
+  }
 
   books: Book[] = [
     {
